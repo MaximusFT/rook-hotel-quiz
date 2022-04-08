@@ -1,4 +1,8 @@
-.App {
-  font-family: sans-serif;
-  text-align: center;
+body {
+  background: #f0f2f5;
+}
+
+.ant-layout-content {
+  padding-right: 16px;
+  padding-left: 16px;
 }
