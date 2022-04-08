@@ -6,10 +6,8 @@ const initialState = [];
 const rhymeReducer = createReducer(initialState, builder => {
   builder.addMatcher(rhymeApi.endpoints.getRhyme.matchFulfilled, (state, data) => {
     if (data?.meta?.arg?.originalArgs?.rel_rhy) {
-      console.log('%c@-> data.payload', 'background: hsl(151,100%,35%); color: #fff', data.payload); // prettier-ignore
       return { ...state, [data?.meta?.arg?.originalArgs?.rel_rhy]: data.payload };
     }
-    console.log('%c@-> state', 'background: hsl(151,100%,35%); color: #fff', state); // prettier-ignore
     return state;
   });
 });

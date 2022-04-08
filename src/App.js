@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
 import { Input, Divider, List, Typography, Layout, Row, Col } from 'antd';
@@ -10,7 +10,7 @@ import useDebounce from './Debounce';
 import 'antd/dist/antd.css';
 import './styles.css';
 
-const { Header, Footer, Sider, Content } = Layout;
+const { Content } = Layout;
 const { Search } = Input;
 
 const serializeFormQuery = (searchParams, newParam) => {
@@ -33,8 +33,6 @@ const UserInput = () => {
   const [searchTerm, setSearchTerm] = useState(currentRhyme);
   const debouncedSearchTerm = useDebounce(searchTerm, 400);
 
-  console.log('%c@-> isLoading', 'background: hsl(251,100%,35%); color: #fff', isLoading); // prettier-ignore
-
   const handleSearch = ({ target: { value } }) => {
     setSearchTerm(value);
   };
@@ -54,11 +52,11 @@ const UserInput = () => {
       setSearchParams(serializeFormQuery(searchParams, { rhyme: debouncedSearchTerm }));
       searchRhyme({ rel_rhy: debouncedSearchTerm });
     }
-  }, [debouncedSearchTerm]);
+  }, [debouncedSearchTerm, currentRhyme, searchRhyme, searchParams, setSearchParams]);
 
   return (
     <Search
-      placeholder="Find your rhyme"
+      placeholder="Find your rhyme, from 4 letters"
       enterButton="Search"
       size="large"
       onChange={handleSearch}
@@ -70,8 +68,6 @@ const UserInput = () => {
 const RhymeOutput = () => {
   const [searchParams] = useSearchParams();
   const rhymeList = useSelector(state => state.rhyme[searchParams.get('rhyme')]);
-
-  console.log('%c@-> rhymeList', 'background: hsl(15,100%,35%); color: #fff', rhymeList); // prettier-ignore
 
   return (
     <>
@@ -93,8 +89,6 @@ const RhymeOutput = () => {
 const RhymeHistory = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const rhymeList = useSelector(state => Object.keys(state.rhyme));
-
-  console.log('%c@-> rhymeList', 'background: hsl(15,100%,35%); color: #fff', rhymeList); // prettier-ignore
 
   const handlerChangeRhyme = rhyme => {
     setSearchParams(serializeFormQuery(searchParams, { rhyme }));
@@ -121,12 +115,12 @@ export default function App() {
     <Layout>
       <Content>
         <Row justify="center" gutter={16}>
-          <Col>
+          <Col span={8}>
             <h1>Find your rhyme!</h1>
             <UserInput />
             <RhymeOutput />
           </Col>
-          <Col>
+          <Col span={8}>
             <RhymeHistory />
           </Col>
         </Row>
