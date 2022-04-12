@@ -1,0 +1,70 @@
+$bg-color: #1779db;
+
+:root {
+  --bs-gutter-x: 18px;
+}
+
+body {
+  background-color: $bg-color;
+  font-family: 'Lato', sans-serif;
+}
+
+.customForm {
+  font-family: 'Lato', sans-serif;
+  margin: auto;
+  width: 471px;
+  margin-top: 20px;
+  .form-label {
+    text-align: left;
+    color: #fff;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 18px;
+  }
+  .form-control {
+    border-radius: 0;
+    background-color: transparent;
+    color: #fff;
+    line-height: 1.85;
+    &:focus {
+      color: #fff;
+      background-color: transparent;
+      border-color: #fff;
+      outline: 0;
+      box-shadow: none;
+    }
+    &::placeholder{
+      color: #78a8e7;
+      font-style: italic;
+    }
+  }
+  &-formPart{
+    margin-bottom: 30px;
+  }
+  .row {
+    margin-right: -9px;
+    margin-left: -9px;
+    &>* {
+      width: initial;
+      padding-right: 9px;
+      padding-left: 9px;
+    }
+  }
+  .col-5{
+    width: 212px;
+  }
+  .col-7{
+    width: 277px;
+  }
+  #fordate {
+    position: relative;
+    &::-webkit-datetime-edit {
+      padding-left: 28px;
+    }
+    &::-webkit-calendar-picker-indicator {
+      left: 11px;
+      filter: invert(1);
+      position: absolute;
+    }
+  }
+}
